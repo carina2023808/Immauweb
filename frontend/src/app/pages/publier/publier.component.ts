@@ -6,10 +6,10 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-publier',
   standalone: true,
-  imports: [FormsModule,CommonModule, HttpClientModule],
+  imports: [FormsModule, CommonModule, HttpClientModule],
 
   templateUrl: './publier.component.html',
-  styleUrls: ['./publier.component.css']
+  styleUrls: ['./publier.component.css'],
 })
 export class PublierComponent {
   title: string = '';
@@ -17,6 +17,8 @@ export class PublierComponent {
   listingType: string = '';
   description: string = '';
   address: string = '';
+  country: string = '';
+  postCode: string = '';
   totalArea!: number;
   price!: number;
 
@@ -49,16 +51,20 @@ export class PublierComponent {
     formData.append('listingType', this.listingType);
     formData.append('description', this.description);
     formData.append('address', this.address);
+    formData.append('country', this.country);
+    formData.append('postCode', this.postCode);
     formData.append('totalArea', this.totalArea.toString());
     formData.append('price', this.price.toString());
 
-    this.selectedFiles.forEach(file => {
+    this.selectedFiles.forEach((file) => {
       formData.append('images[]', file, file.name);
     });
 
-    this.http.post('http://localhost:8000/api/properties', formData).subscribe({
-      next: res => console.log('Annonce publiée!', res),
-      error: err => console.error('Erro ao publicar', err)
-    });
+    this.http
+      .post('https://localhost:8000/api/properties', formData)
+      .subscribe({
+        next: (res) => console.log('Annonce publiée!', res),
+        error: (err) => console.error('erro le annouce nest pas ete publie', err),
+      });
   }
 }

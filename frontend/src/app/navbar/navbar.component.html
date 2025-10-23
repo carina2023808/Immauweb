@@ -25,14 +25,16 @@
 </nav>
  -->
 
- <nav class="navbar">
+<nav class="navbar">
   <div class="logo">
     <a routerLink="/">
-      <img src="assets/img/core-img/house.png" alt="Logo">
+      <img src="img/core-img/house.png" alt="Logo" />
     </a>
   </div>
 
   <ul class="nav-links">
+    <li><a routerLink="/dashboard" routerLinkActive="active">Accuel</a></li>
+     <li><a routerLink="/profil" routerLinkActive="active">Profil</a></li>
     <li><a routerLink="/vendre" routerLinkActive="active">À vendre</a></li>
     <li><a routerLink="/louer" routerLinkActive="active">À louer</a></li>
     <li><a routerLink="/contact" routerLinkActive="active">Contact</a></li>
@@ -41,12 +43,12 @@
 
   <div class="right-menu" *ngIf="!isLoggedIn">
     <a routerLink="/auth" class="login-btn">Se connecter</a>
-    <div class="lang">FR ▼</div>
+    <!-- <div class="lang">FR ▼</div> -->
   </div>
 
   <div class="right-menu" *ngIf="isLoggedIn">
     <button (click)="logout()" class="login-btn">Logout</button>
     <button routerLink="/dashboard" class="login-btn">Mon espace</button>
-    <div class="lang">FR ▼</div>
+    <!-- <div class="lang">FR ▼</div> -->
   </div>
 </nav>

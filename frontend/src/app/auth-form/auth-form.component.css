@@ -1,86 +1,89 @@
-/* Container geral */
 form {
   max-width: 400px;
-  margin: 2rem auto;
-  padding: 1.5rem;
+  margin: 2.5rem auto;
+  padding: 1.7rem 1.2rem 1.5rem 1.2rem;
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 6px 18px rgba(50,79,155,0.10);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #333;
 }
 
-/* Título centralizado */
 h2 {
   text-align: center;
   font-weight: 700;
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   color: #324f9b;
   margin-bottom: 1.5rem;
+  letter-spacing: 0.2px;
   user-select: none;
 }
 
-/* Labels e inputs */
 label {
   display: block;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.32rem;
   font-weight: 600;
+  color: #223865;
+  font-size: 1.03rem;
 }
 
 input[type="text"],
 input[type="email"],
 input[type="password"] {
   width: 100%;
-  padding: 0.5rem 0.8rem;
-  margin-bottom: 1rem;
-  border: 1.8px solid #ccc;
-  border-radius: 5px;
+  padding: 0.48rem 0.8rem;
+  margin-bottom: 1.07rem;
+  border: 1.7px solid #cfd7e6;
+  border-radius: 6px;
   outline-offset: 2px;
-  transition: border-color 0.25s ease-in-out;
+  transition: border-color 0.22s;
   font-size: 1rem;
   box-sizing: border-box;
+  background: #f6f7fc;
+  color: #2d3559;
 }
 
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus {
   border-color: #324f9b;
-  box-shadow: 0 0 5px rgba(50, 79, 155, 0.5);
+  box-shadow: 0 0 7px rgba(50, 79, 155, 0.16);
 }
 
-/* Botão pequeno estilizado */
 button.btn-primary {
   display: block;
-  max-width: 150px;
   width: 100%;
-  margin: 1rem auto 0;
-  padding: 0.4rem 1.2rem;
-  font-size: 1rem;
-  font-weight: 600;
-  color: white;
+  margin: 1.05rem auto 0;
+  padding: 0.7rem 0;
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: #fff;
   background-color: #324f9b;
   border: none;
-  border-radius: 5px;
+  border-radius: 7px;
   cursor: pointer;
   user-select: none;
-  transition: background-color 0.3s ease;
+  transition: background 0.28s;
 }
 
-button.btn-primary:hover {
+button.btn-primary:hover,
+button.btn-primary:focus {
   background-color: #223865;
 }
 
-/* Link toggle */
-a.toggle-link {
+.toggle-link {
   display: block;
   text-align: center;
-  margin-top: 1rem;
+  margin: 1.28rem auto 0 auto;
   color: #324f9b;
   text-decoration: underline;
   font-weight: 600;
   cursor: pointer;
+  font-size: 1.02rem;
+  transition: color 0.22s;
 }
 
-a.toggle-link:hover {
+.toggle-link:hover,
+.toggle-link:focus {
   color: #223865;
+  text-decoration: underline;
 }

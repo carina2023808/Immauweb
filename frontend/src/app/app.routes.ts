@@ -9,6 +9,7 @@ import { RegisterComponent } from './register/register.component';
 
 import { AuthFormComponent } from './auth-form/auth-form.component';
 import { UserComponent } from './pages/user/user.component';
+import { ProfilComponent } from './pages/profil/profil.component';
 
 
 
@@ -19,7 +20,7 @@ export const routes: Routes = [
   { path: 'louer', component: LouerComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'publier', component: PublierComponent },
-  // { path: 'login', component: LoginComponent },
+  { path: 'profil', component: ProfilComponent },
   { path: 'auth', component: AuthFormComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'dashboard', component: DashboardComponent },

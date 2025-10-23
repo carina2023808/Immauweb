@@ -35,9 +35,10 @@ import { AuthService } from './../services/auth/auth.service';
 //   }
 // }
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NgIf } from '@angular/common';
+import { User } from '../models/user';
 
 
 @Component({
@@ -47,11 +48,20 @@ import { NgIf } from '@angular/common';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit{
+  currentUser: User | null = null;
   constructor(public AuthService: AuthService) {}
 
+  ngOnInit() {
+    this.AuthService.currentUser().subscribe((user) => {
+      // lógica adicional se necessário
+      this.currentUser = user;
+    });
+  }
+
+
   get isLoggedIn(): boolean {
-    return this.AuthService.isAuthenticated();
+    return this.currentUser !== null;
   }
 
   logout() {
