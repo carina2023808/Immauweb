@@ -1,0 +1,153 @@
+/* .annonce-container {
+  max-width: 520px;
+  margin: 2.5rem auto;
+  padding: 2rem 2rem;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.annonce-container h2 {
+  text-align: center;
+  font-weight: 700;
+  font-size: 2rem;
+  color: #324f9b;
+  margin-bottom: 1.7rem;
+  user-select: none;
+}
+
+.annonce-form label {
+  display: block;
+  margin-top: 1.2rem;
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+  color: #324f9b;
+}
+
+.annonce-form input,
+.annonce-form textarea,
+.annonce-form select {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border-radius: 6px;
+  border: 1.5px solid #ccc;
+  font-size: 1.05rem;
+  box-sizing: border-box;
+  resize: none;
+  transition: border-color 0.25s ease;
+}
+
+.annonce-form input:focus,
+.annonce-form textarea:focus,
+.annonce-form select:focus {
+  border-color: #324f9b;
+  outline: none;
+  box-shadow: 0 0 8px rgba(50, 79, 155, 0.5);
+}
+
+.annonce-btn {
+  display: block;
+  width: 100%;
+  margin-top: 2rem;
+  padding: 0.7rem 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  background-color: #324f9b;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.annonce-btn:hover {
+  background-color: #223865;
+} */
+
+form {
+  max-width: 480px;
+  margin: 2rem auto;
+  padding: 2rem 2rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+form label {
+  display: block;
+  margin-top: 1.4rem;
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+  color: #324f9b;
+  font-size: 1.1rem;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="number"],
+form textarea,
+form select,
+form input[type="file"] {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+  transition: border-color 0.25s ease;
+}
+
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form input[type="number"]:focus,
+form textarea:focus,
+form select:focus,
+form input[type="file"]:focus {
+  border-color: #324f9b;
+  outline: none;
+  box-shadow: 0 0 8px rgba(50, 79, 155, 0.5);
+}
+
+form textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.preview-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.preview-images img {
+  width: 85px;
+  height: 65px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1.3px solid #ccc;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+form button[type="submit"] {
+  display: block;
+  width: 100%;
+  margin-top: 2rem;
+  padding: 12px 0;
+  font-size: 1.15rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #324f9b;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+form button[type="submit"]:hover {
+  background-color: #223865;
+}

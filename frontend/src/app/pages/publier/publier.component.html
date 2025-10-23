@@ -1,0 +1,48 @@
+<!-- esse formulario registra em property -->
+<form (ngSubmit)="onSubmit()" enctype="multipart/form-data" novalidate>
+  <label for="title">Titre</label>
+  <input type="text" id="title" name="title" [(ngModel)]="title" required />
+
+  <label for="propertyType">Type de propriété</label>
+  <select id="propertyType" name="propertyType" [(ngModel)]="propertyType" required>
+    <option value="">Sélectionner</option>
+    <option value="maison">Maison</option>
+    <option value="appartement">Appartement</option>
+  </select>
+
+  <label for="listingType">Type d'annonce</label>
+  <select id="listingType" name="listingType" [(ngModel)]="listingType" required>
+    <option value="">Sélectionner</option>
+    <option value="acheter">À acheter</option>
+    <option value="vendre">À vendre</option>
+  </select>
+
+  <label for="description">Description</label>
+  <textarea id="description" name="description" [(ngModel)]="description" rows="5" required></textarea>
+
+  <label for="address">Adresse</label>
+  <input type="text" id="address" name="address" [(ngModel)]="address" required />
+
+  <label for="totalArea">Surface totale (m²)</label>
+  <input type="number" id="totalArea" name="totalArea" [(ngModel)]="totalArea" min="0" required />
+
+  <label for="price">Prix (€)</label>
+  <input type="number" id="price" name="price" [(ngModel)]="price" min="0" required />
+
+  <label for="propertyImages">Photos de l'annonce</label>
+  <input
+    type="file"
+    id="propertyImages"
+    (change)="onFilesSelected($event)"
+    multiple
+    accept="image/*"
+  />
+
+  <div class="preview-images">
+    <img *ngFor="let img of selectedImages" [src]="img" alt="Prévisualisation image" />
+  </div>
+
+  <button type="submit" [disabled]="!title || !propertyType || !listingType || !description || !address || !totalArea || !price">
+    Publier
+  </button>
+</form>

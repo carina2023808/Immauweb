@@ -1,0 +1,9 @@
+nelmio_cors:
+    defaults:
+        allow_origin: ['http://localhost:4200']  # endereço do seu app Angular
+        allow_methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE']
+        allow_headers: ['Content-Type', 'Authorization']
+        expose_headers: ['Link']
+        max_age: 3600
+    paths:
+        '^/api/': ~

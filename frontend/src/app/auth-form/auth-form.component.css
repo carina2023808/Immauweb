@@ -1,0 +1,86 @@
+/* Container geral */
+form {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+/* Título centralizado */
+h2 {
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: #324f9b;
+  margin-bottom: 1.5rem;
+  user-select: none;
+}
+
+/* Labels e inputs */
+label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 0.5rem 0.8rem;
+  margin-bottom: 1rem;
+  border: 1.8px solid #ccc;
+  border-radius: 5px;
+  outline-offset: 2px;
+  transition: border-color 0.25s ease-in-out;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-color: #324f9b;
+  box-shadow: 0 0 5px rgba(50, 79, 155, 0.5);
+}
+
+/* Botão pequeno estilizado */
+button.btn-primary {
+  display: block;
+  max-width: 150px;
+  width: 100%;
+  margin: 1rem auto 0;
+  padding: 0.4rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  background-color: #324f9b;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+button.btn-primary:hover {
+  background-color: #223865;
+}
+
+/* Link toggle */
+a.toggle-link {
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+  color: #324f9b;
+  text-decoration: underline;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+a.toggle-link:hover {
+  color: #223865;
+}
