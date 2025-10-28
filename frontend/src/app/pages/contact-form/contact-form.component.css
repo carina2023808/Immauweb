@@ -1,26 +1,33 @@
+/* Container principal ajustado */
 .contact-container {
   max-width: 450px;
   margin: 2.5rem auto;
   padding: 2rem 1.5rem;
-  background: #fff;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.09);
+  background-color: #fff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.09);
   border-radius: 8px;
 }
 
+/* Título */
 .contact-container h2 {
   text-align: center;
   color: #324f9b;
   margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  font-weight: 600;
 }
 
+/* Labels */
 .contact-form label {
   display: block;
   margin-top: 1rem;
   margin-bottom: 0.5rem;
   font-weight: 600;
   color: #324f9b;
+  font-size: 0.95rem;
 }
 
+/* Inputs e textarea */
 .contact-form input,
 .contact-form textarea {
   width: 100%;
@@ -28,16 +35,27 @@
   border: 1.4px solid #ccc;
   border-radius: 5px;
   font-size: 1rem;
-  resize: none;
+  box-sizing: border-box;
   transition: border-color 0.2s;
+  font-family: inherit;
+  resize: none;
 }
 
+/* Foco nos campos */
 .contact-form input:focus,
 .contact-form textarea:focus {
   border-color: #324f9b;
   outline: none;
+  box-shadow: 0 0 8px rgba(50, 79, 155, 0.3);
 }
 
+/* Espaço no textarea */
+.contact-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Botão com o mesmo estilo */
 .contact-btn {
   display: block;
   width: 100%;
@@ -55,4 +73,22 @@
 
 .contact-btn:hover {
   background-color: #223865;
+}
+
+.contact-btn:disabled {
+  background-color: #a0c8f0;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Mensagens de envio ou erro */
+div {
+  font-size: 1rem;
+  margin-top: 10px;
+}
+div:nth-child(1):not([hidden]) {
+  color: green;
+}
+div:nth-child(2):not([hidden]) {
+  color: red;
 }

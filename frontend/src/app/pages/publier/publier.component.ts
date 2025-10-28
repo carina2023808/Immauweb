@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -17,6 +18,7 @@ export class PublierComponent {
   listingType: string = '';
   description: string = '';
   address: string = '';
+  city: string = '';
   country: string = '';
   postCode: string = '';
   totalArea!: number;
@@ -25,7 +27,8 @@ export class PublierComponent {
   selectedImages: string[] = [];
   selectedFiles: File[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
+
 
   onFilesSelected(event: Event): void {
     this.selectedImages = [];
@@ -51,10 +54,14 @@ export class PublierComponent {
     formData.append('listingType', this.listingType);
     formData.append('description', this.description);
     formData.append('address', this.address);
+     formData.append('city', this.city);
     formData.append('country', this.country);
     formData.append('postCode', this.postCode);
     formData.append('totalArea', this.totalArea.toString());
     formData.append('price', this.price.toString());
+
+    const user = JSON.parse(localStorage.getItem('user') || "{}");
+    formData.append('userId', user.id.toString());
 
     this.selectedFiles.forEach((file) => {
       formData.append('images[]', file, file.name);
@@ -63,7 +70,9 @@ export class PublierComponent {
     this.http
       .post('https://localhost:8000/api/properties', formData)
       .subscribe({
-        next: (res) => console.log('Annonce publiée!', res),
+        next: (res) => {
+          this.router.navigate(['/profil']);
+        },
         error: (err) => console.error('erro le annouce nest pas ete publie', err),
       });
   }

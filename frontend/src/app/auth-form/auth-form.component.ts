@@ -31,9 +31,12 @@ export class AuthFormComponent {
       this.authService.login({ email: this.email, password: this.password })
         .subscribe({
           next: (res) => {
-            this.successMsg = 'Login realise avec sucess!';
-            this.errorMsg = '';
-            
+            // this.successMsg = 'Login réalisé avec sucess!';
+            // this.errorMsg = '';
+            console.log('Login réalisé avec sucess!'),res;
+
+
+            //redirect to dashboard or home
             this.router.navigate(['/dashboard']);
           },
           error: (err) => {

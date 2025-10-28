@@ -1,27 +1,17 @@
-// import { Component } from '@angular/core';
-// import { FormsModule } from '@angular/forms';
-
-// @Component({
-//   selector: 'app-user',
-//   imports: [FormsModule],
-//   templateUrl: './user.component.html',
-//   styleUrl: './user.component.css'
-// })
-// export class UserComponent {
-
-// }
-
 
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user/user.service';
+import { NgForOf, NgIf } from "@angular/common";
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  styleUrls: ['./user.component.css'],
+  imports: [NgForOf, NgIf]
 })
 export class UserComponent implements OnInit {
   users: any[] = [];
+  loading = false
 
   constructor(private userService: UserService) {}
 

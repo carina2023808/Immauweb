@@ -1,0 +1,44 @@
+<!-- <h2>Contactez Nous</h2>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <label for="name">Prenom</label>
+  <input formControlName="name" placeholder="Name" required>
+
+  <label for="nom">Nom</label>
+  <input formControlName="nom" placeholder="Nom" required>
+
+  <label for="email">Email</label>
+  <input formControlName="email" placeholder="Email" required>
+
+  <label for="message">Message</label>
+  <textarea formControlName="message" placeholder="Message"></textarea>
+  <button type="submit" [disabled]="form.invalid || submitting">
+    {{ submitting ? 'Submitting...' : 'Submit' }}
+  </button>
+  <div *ngIf="submitted">Thank you! Your message has been sent.</div>
+  <div *ngIf="error">{{ error }}</div>
+</form>
+ -->
+
+ <div class="contact-container">
+  <h2>Contactez Nous</h2>
+  <form class="contact-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <label for="firstname">Prenom</label>
+    <input formControlName="firstname" placeholder="" required />
+
+    <label for="lastname">Nom</label>
+    <input formControlName="lastname" placeholder="" required />
+
+    <label for="email">Email</label>
+    <input formControlName="email" placeholder="" required />
+
+    <label for="message">Message</label>
+    <textarea formControlName="message" placeholder="Message"></textarea>
+
+    <button type="submit" [disabled]="form.invalid || submitting" class="contact-btn">
+      {{ submitting ? 'Submitting...' : 'Envoyer' }}
+    </button>
+
+    <div *ngIf="submitted">Thank you! Your message has been sent.</div>
+    <div *ngIf="error">{{ error }}</div>
+  </form>
+</div>

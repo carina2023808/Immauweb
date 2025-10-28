@@ -1,10 +1,11 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { NgForOf } from "@angular/common";
 
 @Component({
   selector: 'app-louer',
   standalone: true,
-  imports: [HttpClientModule],
+  imports: [HttpClientModule, NgForOf],
   templateUrl: './louer.component.html',
   styleUrl: './louer.component.css'
 })
@@ -14,11 +15,11 @@ export class LouerComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get<any[]>('http://localhost:8000/api/properties')
+    this.http.get<any>('https://localhost:8000/api/properties?type=louer')
       .subscribe(data => {
-        this.properties = data.map(property => ({
+        this.properties = data.data.map((property: any) => ({
           ...property,
-          images: property.images ?? []
+          images: property.photos ?? []
         }));
       });
   }

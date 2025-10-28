@@ -15,11 +15,11 @@ export class VendreComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get<any[]>('http://localhost:8000/api/properties')
+    this.http.get<any>('https://localhost:8000/api/properties?type=vendre')
       .subscribe(data => {
-        this.properties = data.map(property => ({
+        this.properties = data.data.map((property: any) => ({
           ...property,
-          images: property.images ?? []
+          images: property.photos ?? []
         }));
       });
   }

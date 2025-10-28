@@ -13,7 +13,7 @@
   <label for="listingType">Type d'annonce</label>
   <select id="listingType" name="listingType" [(ngModel)]="listingType" required>
     <option value="">Sélectionner</option>
-    <option value="acheter">À acheter</option>
+    <option value="acheter">À louer</option>
     <option value="vendre">À vendre</option>
   </select>
 
@@ -22,6 +22,9 @@
 
   <label for="address">Adresse</label>
   <input type="text" id="address" name="address" [(ngModel)]="address" required />
+
+  <label for="city">Ville</label>
+  <input type="text" id="city" name="city" [(ngModel)]="city" required />
 
   <label for="address">Pays</label>
   <input type="text" id="country" name="country" [(ngModel)]="country" required />

@@ -2,12 +2,16 @@
 
 namespace App\Controller\Api;
 
+use App\Entity\City;
 use App\Entity\Property;
+use App\Entity\PropertyImage;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route('/api/properties')]
@@ -16,11 +20,16 @@ class PropertyController extends AbstractController
     #[Route('', methods: ['GET'])]
     public function index(Request $request, EntityManagerInterface $em, SerializerInterface $serializer): JsonResponse
     {
+        $type = $request->query->get('type', 'vendre');
+
         $repo = $em->getRepository(Property::class);
         $page = max(1, (int) $request->query->get('page', 1));
         $perPage = min(50, (int) $request->query->get('perPage', 12));
 
-        $qb = $repo->createQueryBuilder('p')->orderBy('p.createdAt', 'DESC');
+        $qb = $repo->createQueryBuilder('p')
+            ->where('p.listingType = :type')
+            ->setParameter('type', $type)
+            ->orderBy('p.createdAt', 'DESC');
         $total = count($qb->getQuery()->getResult());
         $properties = $qb
             ->setFirstResult(($page - 1) * $perPage)
@@ -29,7 +38,24 @@ class PropertyController extends AbstractController
             ->getResult();
 
         $data = $serializer->serialize([
-            'data' => $properties,
+            'data' => array_map(function (Property $property) use ($serializer) {
+                return [
+                    'id' => $property->getId(),
+                    'title' => $property->getTitle(),
+                    'description' => $property->getDescription(),
+                    'price' => $property->getPrice(),
+                    'propertyType' => $property->getPropertyType(),
+                    'listingType' => $property->getListingType(),
+                    'address' => $property->getAdress(),
+                    'totalArea' => $property->getTotalArea(),
+                    'city' => $property->getCity() ? $property->getCity()->getName() : null,
+                    'country' => $property->getCity() ? $property->getCity()->getCountry() : null,
+                    'postCode' => $property->getCity() ? $property->getCity()->getPostCode() : null,
+                    'photos' => array_map(function (PropertyImage $img) {
+                        return 'https://localhost:8000/' . $img->getFilename();
+                    }, $property->getPropertyImages()->toArray()),
+                ];
+            }, $properties),
             'meta' => [
                 'total' => $total,
                 'page' => $page,
@@ -48,21 +74,62 @@ class PropertyController extends AbstractController
     }
 
     #[Route('', methods: ['POST'])]
-    public function create(Request $request, EntityManagerInterface $em): JsonResponse
+    public function create(
+        Request $request,
+        EntityManagerInterface $em,
+        UserRepository $userRepository,
+    ): JsonResponse
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        $data = json_decode($request->getContent(), true);
+        // $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $data = $request->request->all();
+        $userId = $data['userId'];
+        $user = $userRepository->find((int)$userId);
 
+        // City
+        $city = (new City())
+                ->setName($data['city'] ?? '')
+                ->setCountry($data['country'] ?? '')
+                ->setPostCode($data['postCode'] ?? '');
+        $em->persist($city);
+
+        // Property
         $property = new Property();
         $property->setTitle($data['title'] ?? '');
         $property->setDescription($data['description'] ?? '');
         $property->setPrice($data['price'] ?? 0);
-        $property->setPropertyType($data['type'] ?? '');
+        $property->setPropertyType($data['propertyType'] ?? '');
+        $property->setListingType($data['listingType'] ?? '');
+        $property->setAdress($data['address'] ?? '');
+        $property->setTotalArea($data['totalArea'] ?? '');
+        $property->setCity($city);
         $property->setCreatedAt(new \DateTimeImmutable());
         $property->setUpdatedAt(new \DateTimeImmutable());
-        $property->setUser($this->getUser());
+        $property->setUser($user);
 
         $em->persist($property);
+
+        // Image
+        $images = $request->files->all('images');
+
+        foreach($images as $image)
+        {
+            $uploadsDirectory =
+            $newFilename = uniqid() . '.' . $image->guessExtension();
+
+            // Sauvegarder l'image dans le dossier
+             $image->move(
+                "uploads/properties",
+                $newFilename
+            );
+
+            // Base de données
+            $imageModel = (new PropertyImage())
+                ->setFilename("uploads/properties/$newFilename")
+                ->setProperty($property);
+            $em->persist($imageModel);
+        }
+
+
         $em->flush();
 
         return new JsonResponse(['id' => $property->getId()], 201);
