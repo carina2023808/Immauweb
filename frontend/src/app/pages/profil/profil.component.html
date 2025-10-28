@@ -11,7 +11,7 @@
           height="120" />
       <h3>{{ user.firstname }} {{ user.lastname }}</h3>
       <p class="text-muted">{{ user.email }}</p>
-      <p>{{user.imageName}}</p>
+
     </div>
     <button (click)="edit()">Edit</button>
   </div>
@@ -30,6 +30,19 @@
       <label for="email" class="form-label">Email</label>
       <input type="email" id="email" class="form-control" [(ngModel)]="user.email" name="email" />
     </div>
+
+      <input
+    type="file"
+    id="propertyImages"
+    (change)="onFilesSelected($event)"
+    accept="image/*"
+  />
+
+  <div class="preview-images">
+    <img *ngFor="let img of selectedImages" [src]="img" alt="Prévisualisation image" />
+  </div>
+
+
     <button type="submit" class="btn btn-primary">Save</button>
   </form>
 

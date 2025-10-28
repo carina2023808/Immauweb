@@ -30,7 +30,7 @@ export class UserService {
 
 
   updateUser(id: number, data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/users/${id}/edit`, data);
+    return this.http.post(`${this.apiUrl}/users/${id}/edit`, data);
   }
 
 

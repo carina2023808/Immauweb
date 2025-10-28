@@ -19,6 +19,9 @@ export class ProfilComponent implements OnInit {
   loading = true;
   editmode = false;
 
+  selectedImages: string[] = [];
+  selectedFiles: File[] = [];
+
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -82,9 +85,32 @@ export class ProfilComponent implements OnInit {
     this.ngOnInit();
   }
 
+    onFilesSelected(event: Event): void {
+    this.selectedImages = [];
+    this.selectedFiles = [];
+
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      for (let i = 0; i < input.files.length; i++) {
+        let file = input.files[i];
+        this.selectedFiles.push(file);
+
+        const reader = new FileReader();
+        reader.onload = (e: any) => this.selectedImages.push(e.target.result);
+        reader.readAsDataURL(file);
+      }
+    }
+  }
+
   submit() {
-    console.log(this.user);
-    this.userService.updateUser(this.user!.id!, this.user).subscribe({
+    const formData = new FormData();
+
+    formData.append('firstname', this.user!.firstname!);
+    formData.append('lastname', this.user!.lastname!);
+    formData.append('email', this.user!.email!);
+    formData.append('photo', this.selectedFiles[0]);
+
+    this.userService.updateUser(this.user!.id!, formData).subscribe({
       next: (data) => {
         console.log('Perfil atualizado com sucesso:', data);
         this.editmode = false;

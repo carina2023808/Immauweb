@@ -113,7 +113,6 @@ class PropertyController extends AbstractController
 
         foreach($images as $image)
         {
-            $uploadsDirectory =
             $newFilename = uniqid() . '.' . $image->guessExtension();
 
             // Sauvegarder l'image dans le dossier

@@ -65,14 +65,30 @@ public function getUserWithProperties(UserRepository $userRepository, int $id): 
     return new JsonResponse($data);
 }
 
-#[Route('/api/users/{id}/edit', name: 'api_edit', methods: ['PUT'])]
+#[Route('/api/users/{id}/edit', name: 'api_edit', methods: ['POST'])]
 public function edit(Request $request, EntityManagerInterface $em, User $user): JsonResponse
 {
 
-    $data = json_decode($request->getContent(), true);
+    $data = $request->request->all();
+
     $user->setFirstname($data['firstname']);
     $user->setLastname($data['lastname']);
     $user->setEmail($data['email']);
+
+
+    // Image
+    $image = $request->files->get('photo');
+
+    $newFilename = uniqid() . '.' . $image->guessExtension();
+
+    // Sauvegarder l'image dans le dossier
+    $image->move(
+        "uploads/users",
+        $newFilename
+    );
+
+    $user->setImageName("uploads/users/$newFilename");
+
     $em->persist($user);
     $em->flush();
     return new JsonResponse(['status' => 'updated']);
