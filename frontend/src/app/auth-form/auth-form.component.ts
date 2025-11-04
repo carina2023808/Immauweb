@@ -40,13 +40,13 @@ export class AuthFormComponent {
             this.router.navigate(['/dashboard']);
           },
           error: (err) => {
-            this.errorMsg = err.error?.message || 'Falha no login.';
+            this.errorMsg = err.error?.message || 'Les mots de passe  au le Ulilisateur ne correspondent pas!';
             this.successMsg = '';
           }
         });
     } else {
       if (this.password !== this.confirmPassword) {
-        this.errorMsg = 'Senhas não coincidem!';
+        this.errorMsg = 'Les mots de passe  au le Ulilisateur ne correspondent pas!';
         this.successMsg = '';
         return;
       }
@@ -57,12 +57,12 @@ export class AuthFormComponent {
         password: this.password
       }).subscribe({
         next: () => {
-          this.successMsg = 'Cadastro efetuado! Agora você pode fazer login.';
+          this.successMsg = 'Inscription réussie ! Vous pouvez maintenant vous connecter.';
           this.errorMsg = '';
           this.toggleMode();
         },
         error: (err) => {
-          this.errorMsg = err.error?.message || 'Erro ao registrar.';
+          this.errorMsg = err.error?.message || "Erreur lors de l'enregistrement.";
           this.successMsg = '';
         }
       });

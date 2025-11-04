@@ -1,4 +1,4 @@
-<h2>{{ isLoginMode ? 'Se connecter' : 'Créer un compte' }}</h2>
+<!-- <h2>{{ isLoginMode ? 'Se connecter' : 'Créer un compte' }}</h2>
 
 <form (ngSubmit)="onSubmit()">
 
@@ -28,4 +28,81 @@
 
 <a href="#" (click)="toggleMode(); $event.preventDefault()" class="toggle-link">
   {{ isLoginMode ? 'Créer un compte' : 'Se connecter' }}
-</a>
+</a> -->
+<div class="auth-container">
+  <h2>{{ isLoginMode ? 'Se connecter' : 'Créer un compte' }}</h2>
+
+  <!-- ALERTAS -->
+  <div *ngIf="successMsg" class="alert alert-success">
+    {{ successMsg }}
+  </div>
+
+  <div *ngIf="errorMsg" class="alert alert-danger">
+    {{ errorMsg }}
+  </div>
+
+  <form (ngSubmit)="onSubmit()" #authForm="ngForm">
+
+    <div *ngIf="!isLoginMode">
+      <label for="firstname" class="label">Prénom</label>
+      <input
+        id="firstname"
+        type="text"
+        [(ngModel)]="firstname"
+        name="firstname"
+        class="input"
+        required
+      />
+
+      <label for="lastname" class="label">Nom</label>
+      <input
+        id="lastname"
+        type="text"
+        [(ngModel)]="lastname"
+        name="lastname"
+        class="input"
+        required
+      />
+    </div>
+
+    <label for="email" class="label">Email</label>
+    <input
+      id="email"
+      type="email"
+      [(ngModel)]="email"
+      name="email"
+      class="input"
+      required
+    />
+
+    <label for="password" class="label">Mot de passe</label>
+    <input
+      id="password"
+      type="password"
+      [(ngModel)]="password"
+      name="password"
+      class="input"
+      required
+    />
+
+    <div *ngIf="!isLoginMode">
+      <label for="confirmPassword" class="label">Confirmer mot de passe</label>
+      <input
+        id="confirmPassword"
+        type="password"
+        [(ngModel)]="confirmPassword"
+        name="confirmPassword"
+        class="input"
+        required
+      />
+    </div>
+
+    <button type="submit" class="btn-primary">
+      {{ isLoginMode ? 'Connexion' : 'S\'inscrire' }}
+    </button>
+  </form>
+
+  <a href="#" (click)="toggleMode(); $event.preventDefault()" class="toggle-link">
+    {{ isLoginMode ? 'Créer un compte' : 'Se connecter' }}
+  </a>
+</div>

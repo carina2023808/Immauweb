@@ -3,7 +3,7 @@
 <div class="container mt-5" *ngIf="user">
 
   <div *ngIf="!editmode">
-    <!-- Dados do usuário -->
+
     <div class="card p-4 text-center shadow-lg" style="max-width: 400px; margin: auto;">
       <img *ngIf="user.imageName" [src]="user.imageName" alt="Foto do usuário" class="rounded-circle mb-3" width="150"
         height="150" />
@@ -16,7 +16,7 @@
   </div>
 
   <form *ngIf="editmode" (submit)="submit()">
-    <!-- Formulário de edição do perfil -->
+
     <div class="mb-3">
       <label for="firstname" class="form-label">Prénom</label>
       <input type="text" id="firstname" class="form-control" [(ngModel)]="user.firstname" name="firstname" />
@@ -46,7 +46,7 @@
   </form>
 
 
-  <!-- property -->
+
   <h3 class="mt-5">Mes annonces</h3>
 
   <div class="container m-auto">
@@ -57,7 +57,6 @@
             style="object-fit: cover" />
         </div>
 
-        <!-- Modo visualização -->
         <div *ngIf="editpropertymode !== property"  [routerLink]="['/property-detail', property.id]">
           <h4>{{ property.title | truncate:30}}</h4>
           <p><strong>Type:</strong> {{ property.propertyType }}</p>
@@ -68,7 +67,7 @@
           </button>
         </div>
 
-        <!-- Modo edição -->
+
         <form *ngIf="editpropertymode === property" (ngSubmit)="submitProperty(property)" #propertyForm="ngForm"
           class="mt-2">
           <div class="mb-3">
@@ -143,7 +142,6 @@
               name="price" required />
           </div>
 
-          <!-- Section d'upload de photos -->
           <div class="mb-3">
             <label for="photos-{{ property.id }}" class="form-label">Ajouter de nouvelles photos</label>
             <input type="file" id="photos-{{ property.id }}" class="form-control"
@@ -151,7 +149,7 @@
             <small class="form-text text-muted">Vous pouvez sélectionner plusieurs images</small>
           </div>
 
-          <!-- Preview des nouvelles photos sélectionnées -->
+
           <div *ngIf="
             propertySelectedImages[property.id] &&
             propertySelectedImages[property.id].length > 0

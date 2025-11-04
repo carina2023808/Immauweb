@@ -243,13 +243,15 @@ export class ProfilComponent implements OnInit {
   editmode = false;
   editpropertymode: any = false;
 
-  // Pour le profil utilisateur
+
   selectedImages: string[] = [];
   selectedFiles: File[] = [];
 
-  // Pour les propriétés - stockage par ID de propriété
+
   propertySelectedImages: { [key: number]: string[] } = {};
   propertySelectedFiles: { [key: number]: File[] } = {};
+
+
 
   constructor(
     private router: Router,
@@ -293,7 +295,6 @@ export class ProfilComponent implements OnInit {
     });
   }
 
-  // Modo de edição do perfil geral
   edit(): void {
     this.editmode = true;
   }
@@ -324,7 +325,7 @@ export class ProfilComponent implements OnInit {
     this.ngOnInit();
   }
 
-  // Upload de fotos do perfil
+
   onFilesSelected(event: Event): void {
     this.selectedImages = [];
     this.selectedFiles = [];
@@ -342,9 +343,12 @@ export class ProfilComponent implements OnInit {
     }
   }
 
-  // Upload de fotos da propriedade
+
+
+
+
   onPropertyFilesSelected(event: Event, propertyId: number): void {
-    // Inicializa arrays para esta propriedade se não existirem
+
     if (!this.propertySelectedImages[propertyId]) {
       this.propertySelectedImages[propertyId] = [];
     }
@@ -352,7 +356,7 @@ export class ProfilComponent implements OnInit {
       this.propertySelectedFiles[propertyId] = [];
     }
 
-    // Limpa seleções anteriores
+
     this.propertySelectedImages[propertyId] = [];
     this.propertySelectedFiles[propertyId] = [];
 
@@ -371,7 +375,7 @@ export class ProfilComponent implements OnInit {
     }
   }
 
-  // Remove uma foto selecionada antes do upload
+
   removeSelectedPropertyPhoto(propertyId: number, index: number): void {
     if (this.propertySelectedImages[propertyId]) {
       this.propertySelectedImages[propertyId].splice(index, 1);
@@ -395,7 +399,7 @@ export class ProfilComponent implements OnInit {
       next: (data) => {
         console.log('Perfil atualizado com sucesso:', data);
         this.editmode = false;
-        this.ngOnInit(); // Recarrega dados
+        this.ngOnInit();
       },
       error: (err) => {
         console.error('Erro ao atualizar perfil:', err);
@@ -403,13 +407,13 @@ export class ProfilComponent implements OnInit {
     });
   }
 
-  // Métodos para propriedades
+
   toggleEdit(property: any): void {
     if (!this.user?.properties) return;
 
     if (this.editpropertymode === property) {
       this.editpropertymode = false;
-      // Limpa seleções ao cancelar
+
       if (property.id) {
         this.propertySelectedImages[property.id] = [];
         this.propertySelectedFiles[property.id] = [];
@@ -421,19 +425,19 @@ export class ProfilComponent implements OnInit {
 
   saveProperty(property: any): void {
     if (!this.user?.properties) return;
-    console.log('Salvar propriedade:', property);
+    console.log('Enregistrer la propriété :﻿:', property);
     this.editpropertymode = false;
   }
 
   deleteProperty(property: any): void {
     if (!this.user?.properties) return;
 
-    if (!confirm('Você tem certeza que deseja excluir esta propriedade?'))
+    if (!confirm('Êtes-vous sûr de vouloir supprimer cette propriété ?'))
       return;
 
     this.propertyService.deleteProperty(property.id).subscribe({
       next: () => {
-        console.log('Propriedade deletada com sucesso');
+        console.log('Propriété supprimée avec succès!');
         const index = this.user!.properties!.indexOf(property);
         if (index > -1) {
           this.user!.properties!.splice(index, 1);
@@ -443,8 +447,8 @@ export class ProfilComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.error('Erro ao deletar propriedade:', err);
-        alert('Erro ao deletar propriedade. Tente novamente.');
+        console.error('Erreur lors de la suppression de la propriété:', err);
+        alert('Erreur lors de la suppression de la propriété.');
       },
     });
   }
@@ -468,7 +472,7 @@ export class ProfilComponent implements OnInit {
     formData.append('price', property.price.toString());
     formData.append('userId', this.user!.id!.toString());
 
-    // Adiciona as novas fotos selecionadas
+
     if (
       this.propertySelectedFiles[property.id] &&
       this.propertySelectedFiles[property.id].length > 0
@@ -481,17 +485,17 @@ export class ProfilComponent implements OnInit {
 
     this.propertyService.updateProperty(property.id, formData).subscribe({
       next: (data) => {
-        console.log('Propriedade atualizada com sucesso:', data);
+        console.log('Propriété mise à jour avec succès:', data);
         this.editpropertymode = false;
-        // Limpa as seleções
+
         this.propertySelectedImages[property.id] = [];
         this.propertySelectedFiles[property.id] = [];
-        // Recarrega os dados
+
         this.ngOnInit();
       },
       error: (err) => {
-        console.error('Erro ao atualizar propriedade:', err);
-        alert('Erro ao atualizar propriedade. Verifique os dados e tente novamente.');
+        console.error('Erreur lors de la mise à jour de la propriété:', err);
+        alert('Erreur lors de la mise à jour de la propriété. Veuillez vérifier les données et réessayer.');
       },
     });
   }

@@ -1,4 +1,8 @@
-<!-- esse formulario registra em property -->
+<!--
+<div *ngIf="alertMessage" class="alert" [ngClass]="{'alert-success': alertType === 'success', 'alert-error': alertType === 'error'}">
+  {{ alertMessage }}
+</div>
+
 <form (ngSubmit)="onSubmit()" enctype="multipart/form-data" novalidate>
   <h2>Publie l'Announce</h2>
   <label for="title">Titre</label>
@@ -55,4 +59,129 @@
   <button type="submit" [disabled]="!title || !propertyType || !listingType || !description || !address || !totalArea || !price">
     Publier
   </button>
-</form>
+</form> -->
+
+
+<div class="container mt-4 publier-container">
+  <h2 class="text-center mb-3">Publie l'annonce</h2>
+
+  <!-- ✅ ALERTAS BOOTSTRAP -->
+  <div
+    *ngIf="alertMessage"
+    class="alert alert-dismissible fade show"
+    [ngClass]="{
+      'alert-success': alertType === 'success',
+      'alert-danger': alertType === 'error'
+    }"
+    role="alert"
+  >
+    {{ alertMessage }}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+      (click)="closeAlert()"
+    ></button>
+  </div>
+
+  <form (ngSubmit)="onSubmit()" enctype="multipart/form-data" novalidate>
+    <div class="mb-3">
+      <label for="title" class="form-label">Titre</label>
+      <input type="text" id="title" name="title" [(ngModel)]="title" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+      <label for="propertyType" class="form-label">Type de propriété</label>
+      <select id="propertyType" name="propertyType" [(ngModel)]="propertyType" class="form-select" required>
+        <option value="">Sélectionner</option>
+        <option value="maison">Maison</option>
+        <option value="appartement">Appartement</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="listingType" class="form-label">Type d'annonce</label>
+      <select id="listingType" name="listingType" [(ngModel)]="listingType" class="form-select" required>
+        <option value="">Sélectionner</option>
+        <option value="louer">À louer</option>
+        <option value="vendre">À vendre</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea id="description" name="description" [(ngModel)]="description" rows="5" class="form-control" required></textarea>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="address" class="form-label">Adresse</label>
+        <input type="text" id="address" name="address" [(ngModel)]="address" class="form-control" required />
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="city" class="form-label">Ville</label>
+        <input type="text" id="city" name="city" [(ngModel)]="city" class="form-control" required />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="country" class="form-label">Pays</label>
+        <input type="text" id="country" name="country" [(ngModel)]="country" class="form-control" required />
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="postCode" class="form-label">Code Postal</label>
+        <input type="text" id="postCode" name="postCode" [(ngModel)]="postCode" class="form-control" required />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="totalArea" class="form-label">Surface totale (m²)</label>
+        <input type="number" id="totalArea" name="totalArea" [(ngModel)]="totalArea" min="0" class="form-control" required />
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="price" class="form-label">Prix (€)</label>
+        <input type="number" id="price" name="price" [(ngModel)]="price" min="0" class="form-control" required />
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="propertyImages" class="form-label">Photos de l'annonce</label>
+      <input
+        type="file"
+        id="propertyImages"
+        (change)="onFilesSelected($event)"
+        multiple
+        accept="image/*"
+        class="form-control"
+      />
+    </div>
+
+    <div class="preview-images mb-3">
+      <img
+        *ngFor="let img of selectedImages"
+        [src]="img"
+        class="img-thumbnail me-2 mb-2"
+        style="width: 100px; height: 100px; object-fit: cover;"
+      />
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary w-100"
+      [disabled]="
+        !title ||
+        !propertyType ||
+        !listingType ||
+        !description ||
+        !address ||
+        !totalArea ||
+        !price
+      "
+    >
+      Publier
+    </button>
+  </form>
+</div>
