@@ -45,10 +45,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
 
     #[ORM\Column]
-    private ?bool $isVerified = false;
+    private ?bool $isVerified = true;
 
-    #[ORM\Column(length: 500, nullable: true)]
-    private ?string $imageName = null;
+    // #[ORM\Column(length: 500, nullable: true)]
+    // private ?string $imageName = null;
+
+
+
+    #[ORM\Column(nullable: true)]
+    private ?string $imageName = "uploads/default-user.png";
+
 
     /**
      * @var Collection<int, Property>

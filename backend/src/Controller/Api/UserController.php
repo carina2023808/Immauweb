@@ -33,6 +33,7 @@ public function register(Request $request, EntityManagerInterface $em)
 #[Route('/api/users/{id}', name: 'get_user_with_properties', methods: ['GET'])]
 public function getUserWithProperties(UserRepository $userRepository, int $id): JsonResponse
 {
+    /** @var User */
     $user = $userRepository->find($id);
 
     if (!$user) {
@@ -45,13 +46,18 @@ public function getUserWithProperties(UserRepository $userRepository, int $id): 
         'firstname' => $user->getFirstname(),
         'lastname' => $user->getLastname(),
         'email' => $user->getEmail(),
-        'imageName' => $user->getImageName(),
+        'imageName' => "https://localhost:8000/{$user->getImageName()}",
         'properties' => $user->getProperties()->map(function ($property) {
+            /** @var \App\Entity\Property $property */
             return [
                 'id' => $property->getId(),
                 'title' => $property->getTitle(),
                 'price' => $property->getPrice(),
-                'adress' => $property->getAdress(),
+                'address' => $property->getAdress(),
+                'city' => $property->getCity()->getName(),
+                'country' => $property->getCity()->getCountry(),
+                'postCode' => $property->getCity()->getPostCode(),
+                'description' => $property->getDescription(),
                 'propertyType' => $property->getPropertyType(),
                 'listingType' => $property->getListingType(),
                 'totalArea' => $property->getTotalArea(),

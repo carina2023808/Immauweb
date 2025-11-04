@@ -1,76 +1,29 @@
-<!-- <div class="site-container">
-  <main>
-    <section class="hero">
-      <div class="hero-img">
-        <img src="img1.jpg" alt="Destaque" />
-      </div>
-      <div class="hero-content">
-        <h3>Everything you need, instantly</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, esse. Blanditiis quae totam, ipsam ipsa quae explicabo doloremque facere nam cumque dolorem, fuga mollitia minima debitis sapiente provident velit commodi!</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, esse. Blanditiis quae totam, ipsam ipsa quae explicabo doloremque facere nam cumque dolorem, fuga mollitia minima debitis sapiente provident velit commodi!</p>
-        <div class="search-bar">
-          <input type="text" placeholder="Search">
-          <button><span>&#128269;</span></button>
-        </div>
-      </div>
-    </section>
-    <section class="properties">
-      <h2>property to sell/rent</h2>
-      <div class="properties-grid">
-        <div class="property-card">
-          <img src="img2.jpg" alt="Casa" />
-          <h4>Description</h4>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, esse. Blanditiis quae totam, ipsam ipsa quae explicabo doloremque facere.</p>
-        </div>
-        <div class="property-card">
-          <img src="img3.jpg" alt="Casa" />
-          <h4>Description</h4>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, esse. Blanditiis quae totam, ipsam ipsa quae explicabo doloremque facere.</p>
-        </div>
-        <div class="property-card">
-          <img src="img4.jpg" alt="Casa" />
-          <h4>Description</h4>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, esse. Blanditiis quae totam, ipsam ipsa quae explicabo doloremque facere.</p>
-        </div>
-        <div class="property-card">
-          <img src="img5.jpg" alt="Casa" />
-          <h4>Description</h4>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, esse. Blanditiis quae totam, ipsam ipsa quae explicabo doloremque facere.</p>
-        </div>
-        <div class="property-card">
-          <img src="img6.jpg" alt="Casa" />
-          <h4>Description</h4>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, esse. Blanditiis quae totam, ipsam ipsa quae explicabo doloremque facere.</p>
-        </div>
-        <div class="property-card">
-          <img src="img7.jpg" alt="Casa" />
-          <h4>Description</h4>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, esse. Blanditiis quae totam, ipsam ipsa quae explicabo doloremque facere.</p>
-        </div>
-      </div>
-    </section>
-  </main>
-</div> -->
-
 
 
 <div class="properties-container">
   <h2 class="properties-header">Biens à Louer</h2>
   <div class="properties-grid">
-    <div class="property-card" *ngFor="let property of properties">
-      <img [src]="property.images[0]" alt="Photo principale" class="property-photo"/>
-      <div class="property-details">
-        <h4>{{ property.title }}</h4>
-        <p><strong>Type:</strong> {{ property.propertyType }}</p>
-        <p><strong>Description:</strong> {{ property.description }}</p>
-        <p><strong>Adresse:</strong> {{ property.address }}</p>
-        <p><strong>Ville:</strong> {{ property.city }}</p>
-        <p><strong>Code Postal:</strong> {{ property.postCode }}</p>
-        <p><strong>Pay:</strong> {{ property.country }}</p>
-        <p><strong>Surface:</strong> {{ property.totalArea }} m²</p>
-        <p><strong>Prix:</strong> {{ property.price }} €</p>
-      </div>
-    </div>
+
+
+        <a class="property-card" *ngFor="let property of properties" [routerLink]="['/property-detail', property.id]">
+          <img
+            [src]="property.images[property.images.length - 1]"
+            alt="Photo principale"
+            class="property-photo"
+          />
+
+          <div class="property-details">
+            <h4>{{ property.title }}</h4>
+            <!-- <p><strong>Type:</strong> {{ property.propertyType }}</p>
+            <p><strong>Description:</strong> {{ property.description }}</p>
+            <p><strong>Adresse:</strong> {{ property.address }}</p>
+            <p><strong>Ville:</strong> {{ property.city }}</p>
+            <p><strong>Code Postal:</strong> {{ property.postCode }}</p>
+            <p><strong>Pay:</strong> {{ property.country }}</p>
+            <p><strong>Surface:</strong> {{ property.totalArea }} m²</p> -->
+            <p><strong>Prix:</strong> {{ property.price }} €</p>
+          </div>
+        </a>
+
   </div>
 </div>
-

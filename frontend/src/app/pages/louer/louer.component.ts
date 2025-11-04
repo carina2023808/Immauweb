@@ -1,11 +1,12 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForOf } from "@angular/common";
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-louer',
   standalone: true,
-  imports: [HttpClientModule, NgForOf],
+  imports: [HttpClientModule, NgForOf, RouterLink],
   templateUrl: './louer.component.html',
   styleUrl: './louer.component.css'
 })

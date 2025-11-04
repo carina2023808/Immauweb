@@ -1,21 +1,10 @@
-// import { Component } from '@angular/core';
-
-// @Component({
-//   selector: 'app-login',
-//   imports: [],
-//   templateUrl: './login.component.html',
-//   styleUrl: './login.component.css'
-// })
-// export class LoginComponent {
-
-// }
-
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { NgIf } from "@angular/common"
 
 @Component({
   // standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, NgIf],
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']

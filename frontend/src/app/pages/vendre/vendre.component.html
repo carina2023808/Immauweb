@@ -2,20 +2,29 @@
 <div class="properties-container">
   <h2 class="properties-header">Biens à Vendre</h2>
   <div class="properties-grid">
-    <div class="property-card" *ngFor="let property of properties">
-      <img [src]="property.images[0]" alt="Photo principale" class="property-photo"/>
-      <div class="property-details">
-        <h4>{{ property.title }}</h4>
-           <p><strong>Type:</strong> {{ property.propertyType }}</p>
-        <p><strong>Description:</strong> {{ property.description }}</p>
-        <p><strong>Adresse:</strong> {{ property.address }}</p>
-        <p><strong>Ville:</strong> {{ property.city }}</p>
-        <p><strong>Code Postal:</strong> {{ property.postCode }}</p>
-        <p><strong>Pay:</strong> {{ property.country }}</p>
-        <p><strong>Surface:</strong> {{ property.totalArea }} m²</p>
-        <p><strong>Prix:</strong> {{ property.price }} €</p>
-      </div>
-    </div>
+
+
+        <a class="property-card" *ngFor="let property of properties" [routerLink]="['/property-detail', property.id]">
+          <img
+            [src]="property.images[property.images.length - 1]"
+            alt="Photo principale"
+            class="property-photo"
+          />
+
+          <div class="property-details">
+            <h4>{{ property.title }}</h4>
+            <!-- <p><strong>Type:</strong> {{ property.propertyType }}</p>
+            <p><strong>Description:</strong> {{ property.description }}</p>
+            <p><strong>Adresse:</strong> {{ property.address }}</p>
+            <p><strong>Ville:</strong> {{ property.city }}</p>
+            <p><strong>Code Postal:</strong> {{ property.postCode }}</p>
+            <p><strong>Pay:</strong> {{ property.country }}</p>
+            <p><strong>Surface:</strong> {{ property.totalArea }} m²</p> -->
+            <p><strong>Prix:</strong> {{ property.price }} €</p>
+          </div>
+        </a>
+
   </div>
 </div>
+
 

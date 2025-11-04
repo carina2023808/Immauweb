@@ -1,19 +1,18 @@
 <h2>Mon Profil</h2>
 
-<div class="container mt-5" *ngIf="user; else loading">
+<div class="container mt-5" *ngIf="user">
+
   <div *ngIf="!editmode">
     <!-- Dados do usuário -->
     <div class="card p-4 text-center shadow-lg" style="max-width: 400px; margin: auto;">
-      <img [src]="'https://localhost:8000/uploads/images/' + user?.imageName"
-          alt="Foto do usuário"
-          class="rounded-circle mb-3"
-          width="120"
-          height="120" />
+      <img *ngIf="user.imageName" [src]="user.imageName" alt="Foto do usuário" class="rounded-circle mb-3" width="150"
+        height="150" />
       <h3>{{ user.firstname }} {{ user.lastname }}</h3>
       <p class="text-muted">{{ user.email }}</p>
 
+
+      <button class="btn-edit" (click)="edit()">Edit</button>
     </div>
-    <button (click)="edit()">Edit</button>
   </div>
 
   <form *ngIf="editmode" (submit)="submit()">
@@ -31,57 +30,160 @@
       <input type="email" id="email" class="form-control" [(ngModel)]="user.email" name="email" />
     </div>
 
-      <input
-    type="file"
-    id="propertyImages"
-    (change)="onFilesSelected($event)"
-    accept="image/*"
-  />
+    <input type="file" id="propertyImages" (change)="onFilesSelected($event)" accept="image/*" />
 
-  <div class="preview-images">
-    <img *ngFor="let img of selectedImages" [src]="img" alt="Prévisualisation image" />
-  </div>
+    <div class="preview-images">
+      <img *ngFor="let img of selectedImages" [src]="img" alt="Prévisualisation image" />
+    </div>
 
 
-    <button type="submit" class="btn btn-primary">Save</button>
+    <div class="button-group">
+      <button type="submit" class="btn-save">Sauvegarde</button>
+      <button class="btn-delete" (click)="delete()">Effacer</button>
+      <button class="btn-cancel" (click)="annuler()">Annuler</button>
+    </div>
+
   </form>
 
-  <button (click)="delete()">Delete</button>
-  <button (click)="annuler()">Annuler</button>
 
+  <!-- property -->
+  <h3 class="mt-5">Mes annonces</h3>
 
+  <div class="container m-auto">
+    <div class="d-flex flex-wrap gap-3 mt-4 w-100">
+      <div *ngFor="let property of user.properties" class="listing-item p-3 mb-4 border rounded shadow-sm cursor-pointer">
+        <div class="listing-images d-flex gap-2 mb-3">
+          <img [src]="property.photos.at(-1)" alt="Image du bien" width="200" height="200" class="rounded"
+            style="object-fit: cover" />
+        </div>
 
-  <!-- Propriedades -->
-  <h3 class="listings-title mt-4">Mes Propriétés</h3>
+        <!-- Modo visualização -->
+        <div *ngIf="editpropertymode !== property"  [routerLink]="['/property-detail', property.id]">
+          <h4>{{ property.title | truncate:30}}</h4>
+          <p><strong>Type:</strong> {{ property.propertyType }}</p>
+          <p><strong>Prix:</strong> {{ property.price }} €</p>
 
-  <div *ngIf="user.properties?.length; else noProperties">
-    <div *ngFor="let property of user.properties" class="listing-item p-3 mb-4 border rounded shadow-sm">
-      <h4>{{ property.title }}</h4>
-      <p>{{ property.propertyType }}</p>
-      <p>{{ property.listingType }}</p>
-      <p>{{ property.description }}</p>
-      <p>{{ property.adress }}</p>
-      <p>{{ property.totalArea }}</p>
-      <p><strong>Prix:</strong> {{ property.price }} €</p>
+          <button class="btn btn-primary btn-sm " (click)="toggleEdit(property)">
+            Modifier
+          </button>
+        </div>
 
-      <div class="listing-images d-flex gap-2">
-        <img *ngFor="let img of property.photos"
-             [src]="img"
-             alt="Image du bien"
-             width="100"
-             height="75"
-             class="rounded"
-             style="object-fit: cover;" />
+        <!-- Modo edição -->
+        <form *ngIf="editpropertymode === property" (ngSubmit)="submitProperty(property)" #propertyForm="ngForm"
+          class="mt-2">
+          <div class="mb-3">
+            <label for="title-{{ property.id }}" class="form-label">Titre</label>
+            <input type="text" id="title-{{ property.id }}" class="form-control" [(ngModel)]="property.title"
+              name="title" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="propertyType-{{ property.id }}" class="form-label">
+              Type de bien
+            </label>
+
+            <select id="propertyType-{{ property.id }}" class="form-control" [(ngModel)]="property.propertyType"
+              name="propertyType" required>
+              <option value="apartment">Appartement</option>
+              <option value="house">Maison</option>
+
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="listingType-{{ property.id }}" class="form-label">
+              Type d'annonce
+            </label>
+            <select id="listingType-{{ property.id }}" class="form-control" [(ngModel)]="property.listingType"
+              name="listingType" required>
+              <option value="vendre">Ventre</option>
+              <option value="louer">Louer</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="description-{{ property.id }}" class="form-label">Description</label>
+            <textarea id="description-{{ property.id }}" class="form-control" [(ngModel)]="property.description"
+              name="description" rows="3" required></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label for="address-{{ property.id }}" class="form-label">Adresse</label>
+            <input type="text" id="address-{{ property.id }}" class="form-control" [(ngModel)]="property.address"
+              name="address" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="city-{{ property.id }}" class="form-label">Ville</label>
+            <input type="text" id="city-{{ property.id }}" class="form-control" [(ngModel)]="property.city" name="city"
+              required />
+          </div>
+
+          <div class="mb-3">
+            <label for="postCode-{{ property.id }}" class="form-label">Code Postal</label>
+            <input type="text" id="postCode-{{ property.id }}" class="form-control" [(ngModel)]="property.postCode"
+              name="postCode" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="country-{{ property.id }}" class="form-label">Pays</label>
+            <input type="text" id="country-{{ property.id }}" class="form-control" [(ngModel)]="property.country"
+              name="country" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="totalArea-{{ property.id }}" class="form-label">Surface totale (m²)</label>
+            <input type="number" id="totalArea-{{ property.id }}" class="form-control" [(ngModel)]="property.totalArea"
+              name="totalArea" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="price-{{ property.id }}" class="form-label">Prix (€)</label>
+            <input type="number" id="price-{{ property.id }}" class="form-control" [(ngModel)]="property.price"
+              name="price" required />
+          </div>
+
+          <!-- Section d'upload de photos -->
+          <div class="mb-3">
+            <label for="photos-{{ property.id }}" class="form-label">Ajouter de nouvelles photos</label>
+            <input type="file" id="photos-{{ property.id }}" class="form-control"
+              (change)="onPropertyFilesSelected($event, property.id)" accept="image/*" multiple />
+            <small class="form-text text-muted">Vous pouvez sélectionner plusieurs images</small>
+          </div>
+
+          <!-- Preview des nouvelles photos sélectionnées -->
+          <div *ngIf="
+            propertySelectedImages[property.id] &&
+            propertySelectedImages[property.id].length > 0
+          " class="mb-3">
+            <label class="form-label">Aperçu des nouvelles photos:</label>
+            <div class="d-flex flex-wrap gap-2">
+              <div *ngFor="
+                let img of propertySelectedImages[property.id];
+                let i = index
+              " class="position-relative">
+                <img [src]="img" alt="Nouvelle photo" width="100" height="100" class="rounded"
+                  style="object-fit: cover" />
+                <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0"
+                  (click)="removeSelectedPropertyPhoto(property.id, i)" style="padding: 0.25rem 0.5rem">
+                  ×
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex flex-wrap gap-2">
+            <button type="submit" class="btn btn-sm btn-primary" [disabled]="propertyForm.invalid">
+              Sauvegarder
+            </button>
+            <button type="button" class="btn btn-sm btn-secondary" (click)="toggleEdit(property)">
+              Annuler
+            </button>
+            <button type="button" class="btn btn-sm btn-danger" (click)="deleteProperty(property)">
+              Supprimer
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
-</div>
-
-<ng-template #loading>
-  <div class="text-center mt-5">Chargement du profil...</div>
-</ng-template>
-
-<ng-template #noProperties>
-  <div class="text-center mt-3">Vous n'avez aucune propriété pour le moment.</div>
-</ng-template>
-

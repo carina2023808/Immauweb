@@ -1,29 +1,3 @@
-<!--
-<nav class="navbar">
-  <div class="logo">
-    <a routerLink="/">
-      <img src="img/core-img/house.png" alt="Logo">
-    </a>
-  </div>
-
-  <ul class="nav-links">
-    <li><a routerLink="/vendre" routerLinkActive="active">À vendre</a></li>
-    <li><a routerLink="/louer" routerLinkActive="active">À louer</a></li>
-    <li><a routerLink="/contact" routerLinkActive="active">Contact</a></li>
-    <li><a routerLink="/publier" class="cta" routerLinkActive="active">Publier une annonce</a></li>
-  </ul>
-
- <div class="right-menu" *ngIf="!isLoggedIn">
-  <a routerLink="/auth" class="login-btn">Se connecter</a>
-  <div class="lang">FR ▼</div>
-</div>
-
-  <div class="right-menu" *ngIf="isLoggedIn">
-    <button routerLink="/dashboard" class="login-btn">Mon espace</button>
-    <div class="lang">FR ▼</div>
-  </div>
-</nav>
- -->
 
 <nav class="navbar">
   <div class="logo">
@@ -32,27 +6,35 @@
     </a>
   </div>
 
-  <ul class="nav-links">
-    <li><a routerLink="/dashboard" routerLinkActive="active">Accuel</a></li>
-    <li><a routerLink="/profil" routerLinkActive="active">Profil</a></li>
-    <li><a routerLink="/vendre" routerLinkActive="active"><i class="fa-sharp fa-solid fa-house"></i>&nbsp;À vendre</a>
-    </li>
-    <li><a routerLink="/louer" routerLinkActive="active"><i class="fa-sharp fa-solid fa-house"></i>&nbsp;À louer</a>
-    </li>
-    <!-- <li><a routerLink="/contact" routerLinkActive="active"><i class="fa-solid fa-phone"></i>&nbsp;Contact</a></li> -->
-    <li><a routerLink="/contact-form" routerLinkActive="active">
-        <i class="fa-solid fa-phone"></i>&nbsp;Contact</a></li>
-    <li><a routerLink="/publier" class="cta" routerLinkActive="active">Publier une annonce</a></li>
-  </ul>
-
-  <div class="right-menu" *ngIf="!isLoggedIn">
-    <a routerLink="/auth" class="login-btn"><i class="fa-solid fa-user"></i>&nbsp;Se connecter</a>
-    <!-- <div class="lang">FR ▼</div> -->
+  <!-- Ícone do menu hamburguer -->
+  <div class="hamburger  " (click)="toggleMenu() ">
+    <i class="fa fa-bars"></i>
   </div>
 
-  <div class="right-menu" *ngIf="isLoggedIn">
-    <button (click)="logout()" class="login-btn">Logout</button>
-    <!-- <button routerLink="/dashboard" class="login-btn">Mon espace</button> -->
-    <!-- <div class="lang">FR ▼</div> -->
+  <!-- Dropdown do menu -->
+  <ul class="nav-links" [ngClass]="{'active': menuOpen}">
+    <li><a routerLink="/dashboard" routerLinkActive="active">Accueil</a></li>
+    <li *ngIf="isLoggedIn"><a routerLink="/profil" routerLinkActive="active">Profil</a></li>
+    <li><a routerLink="/vendre" routerLinkActive="active"><i class="fa-solid fa-house"></i>&nbsp;À vendre</a></li>
+    <li><a routerLink="/louer" routerLinkActive="active"><i class="fa-solid fa-house"></i>&nbsp;À louer</a></li>
+    <li><a routerLink="/contact-form" routerLinkActive="active"><i class="fa-solid fa-phone"></i>&nbsp;Contact</a></li>
+    <li *ngIf="isLoggedIn"><a routerLink="/publier" class="cta" routerLinkActive="active">Publier une annonce</a></li>
+
+    <!-- Login/Logout dentro do dropdown -->
+    <li class="mobile-only" *ngIf="!isLoggedIn">
+      <a routerLink="/auth" class="login-btn"><i class="fa-solid fa-user"></i>&nbsp;Se connecter</a>
+    </li>
+    <li class="mobile-only" *ngIf="isLoggedIn">
+      <button (click)="logout()" class="login-btn logout-btn">Logout</button>
+    </li>
+  </ul>
+
+  <!-- Área à direita (só no desktop) -->
+  <div class="right-menu desktop-only" *ngIf="!isLoggedIn">
+    <a routerLink="/auth" class="login-btn"><i class="fa-solid fa-user"></i>&nbsp;Se connecter</a>
+  </div>
+
+  <div class="right-menu desktop-only" *ngIf="isLoggedIn">
+    <button (click)="logout()" class="login-btn logout-btn">Logout</button>
   </div>
 </nav>

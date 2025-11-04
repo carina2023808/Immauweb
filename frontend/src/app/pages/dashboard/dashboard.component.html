@@ -1,39 +1,117 @@
-<!-- <section class="hero-section">
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <h1>ImmoWeb blabla</h1>
-    <h2>Who are we</h2>
-    <p>
-      Description de notre compétences, ce service avec un lien cliquable.
-      <a routerLink="/contact">About pour plus info</a><br>
-      About Nous
-    </p>
-    <div class="hero-number">
-      042156652200
-    </div>
-    <a routerLink="/contact" class="hero-contact">Contacte Us</a>
-  </div>
-</section> -->
-
-
 <section class="hero-section">
+
   <video autoplay loop muted playsinline class="hero-video-bg">
     <source src="/videos/house-hero.mp4" type="video/mp4">
 
   </video>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <h1 class="hero-title">ImmoWeb</h1>
+    <h1 class="hero-title">ImmauWeb</h1>
     <h2 class="hero-subtitle">Qui somme Nous</h2>
     <p class="hero-desc">
-      ImmoWeb  is a company of local professionals. We don't just say that lightly. Thanks to our local offices, we can confidently say that no other real estate company understands the sensitivities and nuances of the local market so intimately. Our neighborhood expertise ensures a faster sale at the right price. And our clients benefit from that! <br>
+      ImmoWeb is a company of local professionals. We don't just say that lightly. Thanks to our local offices, we can
+      confidently say that no other real estate company understands the sensitivities and nuances of the local market so
+      intimately. Our neighborhood expertise ensures a faster sale at the right price. And our clients benefit from
+      that! <br>
       <a routerLink="/contact-form">Pour plus info</a>
     </p>
     <div class="hero-number"><i class="fa-solid fa-phone"></i>&nbsp; 042156652200</div>
-  
-     <a routerLink="/contact-form" class="hero-contact">Contactez Nous</a>
 
+    <a routerLink="/contact-form" class="hero-contact">Contactez Nous</a>
+  </div>
+</section>
+
+<!-- Carrossel -->
+<section class="latest-properties-section">
+  <h2 class="section-title">Dernières Propriétés</h2>
+
+  <div id="latestPropertiesCarousel" class="carousel slide" data-bs-ride="carousel">
+
+    <!-- Indicadores dinâmicos -->
+    <div class="carousel-indicators">
+      <button *ngFor="let property of lastProperties; let i = index" type="button"
+        [attr.data-bs-target]="'#latestPropertiesCarousel'" [attr.data-bs-slide-to]="i" [class.active]="i === 0"
+        [attr.aria-current]="i === 0 ? 'true' : null" [attr.aria-label]="'Slide ' + (i + 1)">
+      </button>
+    </div>
+
+    <div class="carousel-inner rounded">
+      <ng-container *ngFor="let property of lastProperties; let i = index">
+        <div class="carousel-item caroussel-Text" [ngClass]="{ active: i === 0 }">
+          <img [src]="
+          property.photos && property.photos.length > 0
+            ? property.photos[property.photos.length - 1]
+            : 'assets/placeholder.jpg'
+        " [alt]="property.title" class="slider__img" />
+          <div class="slider__caption w-50 h-100 float-left position-absolute top-0 start-0 flex-column d-flex">
+            <h4>{{ property.title }}</h4>
+            <p><strong>Announce:</strong> {{ property.listingType }}</p>
+            <p><strong>Prix:</strong> {{ property.price | number }} €</p>
+            <p><strong>Description:</strong> {{ property.description | slice:0:100}}</p>
+
+            <button class='btn btn-sm' [routerLink]="['/property-detail', property.id]">Voir details</button>
+
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- Controles de navegação -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#latestPropertiesCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Précédent</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#latestPropertiesCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Suivant</span>
+    </button>
 
   </div>
 </section>
 
+<!-- testimonial -->
+<div class="container-fluid px-3 px-sm-5 my-5 text-center bodyCard">
+  <h4 class="mb-5 font-weight-bold">Témoignages de nos clients</h4>
+  <div class="owl-carousel owl-theme">
+    <div class="item first prev">
+      <div class="card border-0 py-3 px-4">
+        <div class="row justify-content-center">
+          <img src="https://i.imgur.com/gazoShk.jpg" class="img-fluid profile-pic mb-4 mt-3">
+        </div>
+        <h6 class="mb-3 mt-2">Marielle Haag</h6>
+        <p class="content mb-5 mx-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua Ut enim.</p>
+      </div>
+    </div>
+    <div class="item show">
+      <div class="card border-0 py-3 px-4 card_testonial">
+        <div class="row justify-content-center">
+          <img src="https://i.imgur.com/oW8Wpwi.jpg" class="img-fluid profile-pic mb-4 mt-3">
+        </div>
+        <h6 class="mb-3 mt-2">Ximena Vegara</h6>
+        <p class="content mb-5 mx-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua Ut enim.</p>
+      </div>
+    </div>
+    <div class="item next">
+      <div class="card border-0 py-3 px-4 card_testonial">
+        <div class="row justify-content-center">
+          <img src="https://i.imgur.com/ndQx2Rg.jpg" class="img-fluid profile-pic mb-4 mt-3">
+        </div>
+        <h6 class="mb-3 mt-2">John Paul</h6>
+        <p class="content mb-5 mx-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua Ut enim.</p>
+      </div>
+    </div>
+    <div class="item last">
+      <div class="card border-0 py-3 px-4 card_testonial">
+        <div class="row justify-content-center">
+          <img src="https://i.imgur.com/T5aOhwh.jpg" class="img-fluid profile-pic mb-4 mt-3">
+        </div>
+        <h6 class="mb-3 mt-2">William Doe</h6>
+        <p class="content mb-5 mx-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua Ut enim.</p>
+      </div>
+    </div>
+  </div>
+</div>

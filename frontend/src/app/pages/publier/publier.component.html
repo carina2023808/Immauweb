@@ -1,5 +1,6 @@
 <!-- esse formulario registra em property -->
 <form (ngSubmit)="onSubmit()" enctype="multipart/form-data" novalidate>
+  <h2>Publie l'Announce</h2>
   <label for="title">Titre</label>
   <input type="text" id="title" name="title" [(ngModel)]="title" required />
 
@@ -13,7 +14,7 @@
   <label for="listingType">Type d'annonce</label>
   <select id="listingType" name="listingType" [(ngModel)]="listingType" required>
     <option value="">Sélectionner</option>
-    <option value="acheter">À louer</option>
+    <option value="louer">À louer</option>
     <option value="vendre">À vendre</option>
   </select>
 
@@ -39,7 +40,7 @@
   <input type="number" id="price" name="price" [(ngModel)]="price" min="0" required />
 
   <label for="propertyImages">Photos de l'annonce</label>
-  <input
+  <input class=""
     type="file"
     id="propertyImages"
     (change)="onFilesSelected($event)"

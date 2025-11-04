@@ -1,0 +1,43 @@
+
+
+<div class="container">
+
+  <div class="slider">
+    <div class="slider-inner" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
+      <img
+        *ngFor="let photo of property.photos"
+        [src]="photo"
+        alt="Photo du bien"
+        class="slider-image"
+      />
+    </div>
+
+
+    <button class="slider-btn prev" (click)="prevImage()">&#10094;</button>
+    <button class="slider-btn next" (click)="nextImage()">&#10095;</button>
+
+
+    <div class="slider-indicators">
+      <span
+        *ngFor="let photo of property.photos; let i = index"
+        (click)="goToImage(i)"
+        [class.active]="i === currentIndex">
+      </span>
+    </div>
+  </div>
+
+  <div class="property-card">
+    <div class="property-details">
+      <h4>{{ property.title }}</h4>
+      <p><strong>Type:</strong> {{ property.propertyType }}</p>
+      <p><strong>Description:</strong> {{ property.description }}</p>
+      <p><strong>Adresse:</strong> {{ property.address }}</p>
+      <p><strong>Ville:</strong> {{ property.city }}</p>
+      <p><strong>Code Postal:</strong> {{ property.postCode }}</p>
+      <p><strong>Pays:</strong> {{ property.country }}</p>
+      <p><strong>Surface:</strong> {{ property.totalArea }} m²</p>
+      <p><strong>Prix:</strong> {{ property.price | number }} €</p>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,132 @@
+/* :host {
+  display: block;
+} */
+
+.footer {
+  background-color: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-16) var(--space-24);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-24);
+  flex-wrap: wrap;
+}
+
+/* .footer-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-24);
+  flex-wrap: wrap;
+} */
+
+.footer-contact {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  margin-left: 24px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+}
+
+.contact-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+}
+
+/* Cores diferentes para cada ícone de contato */
+.icon-address {
+  color: #dc2626; /* Vermelho para endereço */
+}
+
+.icon-phone {
+  color: #16a34a; /* Verde para telefone */
+}
+
+.footer-center {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+}
+
+.copyright {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.footer-right {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-right: 24px;
+}
+
+.social-link {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.social-link i {
+  font-size: 24px;
+  transition: transform 0.3s ease;
+}
+
+/* Cores originais das redes sociais */
+.instagram i {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.facebook i {
+  color: #1877f2;
+}
+
+.twitter i {
+  color: #1da1f2;
+}
+
+/* Efeito hover - aumenta um pouco */
+.social-link:hover {
+  transform: translateY(-2px);
+}
+
+.social-link:hover i {
+  transform: scale(1.2);
+}
+
+@media (max-width: 768px) {
+  .footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-16);
+  }
+
+  .footer-left,
+  .footer-contact {
+    flex-direction: column;
+    align-items: center;
+    margin-left: 0;
+  }
+
+  .footer-right {
+    margin-right: 0;
+  }
+}
