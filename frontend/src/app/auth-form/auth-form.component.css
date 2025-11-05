@@ -87,3 +87,17 @@ button.btn-primary:focus {
   color: #223865;
   text-decoration: underline;
 }
+
+.input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.85em;
+  margin-top: 3px;
+}
+
+.required {
+  color: red;
+}

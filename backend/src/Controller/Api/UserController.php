@@ -71,34 +71,70 @@ public function getUserWithProperties(UserRepository $userRepository, int $id): 
     return new JsonResponse($data);
 }
 
+// #[Route('/api/users/{id}/edit', name: 'api_edit', methods: ['POST'])]
+// public function edit(Request $request, EntityManagerInterface $em, User $user): JsonResponse
+// {
+
+//     $data = $request->request->all();
+
+//     $user->setFirstname($data['firstname']);
+//     $user->setLastname($data['lastname']);
+//     $user->setEmail($data['email']);
+
+
+
+//     $image = $request->files->get('photo');
+
+//     $newFilename = uniqid() . '.' . $image->guessExtension();
+
+
+//     $image->move(
+//         "uploads/users",
+//         $newFilename
+//     );
+
+//     $user->setImageName("uploads/users/$newFilename");
+
+//     $em->persist($user);
+//     $em->flush();
+//     return new JsonResponse(['status' => 'updated']);
+// }
 #[Route('/api/users/{id}/edit', name: 'api_edit', methods: ['POST'])]
 public function edit(Request $request, EntityManagerInterface $em, User $user): JsonResponse
 {
-
     $data = $request->request->all();
 
-    $user->setFirstname($data['firstname']);
-    $user->setLastname($data['lastname']);
-    $user->setEmail($data['email']);
+    if (isset($data['firstname'])) {
+        $user->setFirstname($data['firstname']);
+    }
+    if (isset($data['lastname'])) {
+        $user->setLastname($data['lastname']);
+    }
+    if (isset($data['email'])) {
+        $user->setEmail($data['email']);
+    }
 
-
-    // Image
+    // Vérifier si une image a été envoyée
     $image = $request->files->get('photo');
+    if ($image) {
+        $newFilename = uniqid() . '.' . $image->guessExtension();
 
-    $newFilename = uniqid() . '.' . $image->guessExtension();
+        // Sauvegarder l'image dans le dossier
+        $image->move(
+            "uploads/users",
+            $newFilename
+        );
 
-    // Sauvegarder l'image dans le dossier
-    $image->move(
-        "uploads/users",
-        $newFilename
-    );
-
-    $user->setImageName("uploads/users/$newFilename");
+        $user->setImageName("uploads/users/$newFilename");
+    }
 
     $em->persist($user);
     $em->flush();
+
     return new JsonResponse(['status' => 'updated']);
 }
+
+
 #[Route('/api/users/{id}/delete', name: 'api_delete', methods: ['DELETE'])]
 public function delete(Request $request, EntityManagerInterface $em, User $user)
 {

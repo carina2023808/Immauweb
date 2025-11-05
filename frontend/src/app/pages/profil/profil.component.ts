@@ -303,19 +303,19 @@ export class ProfilComponent implements OnInit {
     if (!this.user) return;
     if (
       !confirm(
-        'Você tem certeza que deseja excluir seu perfil? Esta ação é irreversível.'
+        'Êtes-vous sûr de vouloir supprimer votre profil ? Cette action est irréversible. 🤔'
       )
     ) {
       return;
     }
     this.userService.deleteUser(this.user.id!).subscribe({
       next: (data) => {
-        console.log('Perfil excluído com sucesso:', data);
+        console.log('Profil supprimé avec succès 😊!', data);
         this.authService.logout();
         this.router.navigate(['/auth']);
       },
       error: (err) => {
-        console.error('Erro ao excluir perfil:', err);
+        console.error('Erreur lors de la suppression du profil 😞 !', err);
       },
     });
   }
@@ -342,10 +342,6 @@ export class ProfilComponent implements OnInit {
       }
     }
   }
-
-
-
-
 
   onPropertyFilesSelected(event: Event, propertyId: number): void {
 
@@ -395,16 +391,29 @@ export class ProfilComponent implements OnInit {
       formData.append('photo', this.selectedFiles[0]);
     }
 
-    this.userService.updateUser(this.user!.id!, formData).subscribe({
-      next: (data) => {
-        console.log('Perfil atualizado com sucesso:', data);
-        this.editmode = false;
-        this.ngOnInit();
-      },
-      error: (err) => {
-        console.error('Erro ao atualizar perfil:', err);
-      },
-    });
+    // this.userService.updateUser(this.user!.id!, formData).subscribe({
+    //   next: (data) => {
+    //     console.log('Profil mis à jour avec succès 🥰! ', data);
+    //     this.editmode = false;
+    //     this.ngOnInit();
+    //   },
+    //   error: (err) => {
+    //     console.error('Erreur lors de la mise à jour du profil !', err);
+    //   },
+    // });
+
+  this.userService.updateUser(this.user!.id!, formData).subscribe({
+  next: (data) => {
+    alert('Profil mis à jour avec succès 🥰 !');
+    this.editmode = false;
+    this.ngOnInit();
+  },
+  error: (err) => {
+    alert('Erreur lors de la mise à jour du profil 😥 !');
+    console.error(err);
+  },
+});
+
   }
 
 
@@ -425,7 +434,8 @@ export class ProfilComponent implements OnInit {
 
   saveProperty(property: any): void {
     if (!this.user?.properties) return;
-    console.log('Enregistrer la propriété :﻿:', property);
+     alert('Propriété enregistrée avec succès ! 🏡');
+    // console.log('Enregistrer la propriété :', property);
     this.editpropertymode = false;
   }
 
@@ -437,7 +447,8 @@ export class ProfilComponent implements OnInit {
 
     this.propertyService.deleteProperty(property.id).subscribe({
       next: () => {
-        console.log('Propriété supprimée avec succès!');
+         alert('Propriété supprimée avec succès 🗑️ !');
+        // console.log('Propriété supprimée avec succès!');
         const index = this.user!.properties!.indexOf(property);
         if (index > -1) {
           this.user!.properties!.splice(index, 1);
@@ -448,14 +459,14 @@ export class ProfilComponent implements OnInit {
       },
       error: (err) => {
         console.error('Erreur lors de la suppression de la propriété:', err);
-        alert('Erreur lors de la suppression de la propriété.');
+          alert('Erreur lors de la suppression de la propriété ❌');
       },
     });
   }
 
   submitProperty(property: any): void {
     if (!property.id) {
-      console.error('Propriedade sem ID');
+     alert('Erreur : identifiant de la propriété manquant ❗');
       return;
     }
 

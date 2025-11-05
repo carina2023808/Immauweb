@@ -16,7 +16,9 @@ describe('UserService', () => {
     expect(service).toBeTruthy();
   });
 
-
+// Simula a chamada do método getUsers para retornar uma lista mock de usuários (Alice e Bob).
+// Verifica se o retorno realmente equivale a essa lista mock.
+// Confirma que o número de usuários retornados seja 2.
  it('getUsers doit retourner un tableau d’utilisateurs simulé', () => {
     const mockUsers = [
       { id: 1, name: 'Alice' },
@@ -31,6 +33,10 @@ describe('UserService', () => {
     });
   });
 
+
+// Simula o método getUserWithProperties para retornar um usuário mock com propriedades associadas.
+// Verifica se o usuário retornado é igual ao objeto mock.
+// Confirma que o nome do usuário seja Alice.
   it('getUserWithProperties doit retourner un utilisateur simulé', () => {
     const mockUser = { id: 1, name: 'Alice', properties: ['prop1', 'prop2'] };
     spyOn(service, 'getUserWithProperties').and.returnValue(of(mockUser));
@@ -41,6 +47,11 @@ describe('UserService', () => {
     });
   });
 
+
+
+// Simula o método getUserById retornando um usuário específico mock (id 2, nome Bob).
+// Verifica se o usuário retornado corresponde ao mock.
+// Confirma se o id do usuário é 2.
   it('getUserById doit retourner un utilisateur simulé', () => {
     const mockUser = { id: 2, name: 'Bob' };
     spyOn(service, 'getUserById').and.returnValue(of(mockUser));
@@ -51,6 +62,9 @@ describe('UserService', () => {
     });
   });
 
+
+// Simula a chamada updateUser para retornar uma resposta de sucesso mock.
+// Verifica se a resposta é igual à mock e se o campo success é verdadeiro.
   it('updateUser doit retourner une réponse de succès simulée', () => {
     const mockResponse = { success: true };
     spyOn(service, 'updateUser').and.returnValue(of(mockResponse));
@@ -61,6 +75,9 @@ describe('UserService', () => {
     });
   });
 
+
+// Simula a chamada deleteUser para retornar uma confirmação mock informando que o usuário foi excluído.
+// Verifica se a mensagem da resposta é "Utilisateur supprimé".
   it('deleteUser doit retourner une confirmation simulée', () => {
     const mockResponse = { message: 'Utilisateur supprimé' };
     spyOn(service, 'deleteUser').and.returnValue(of(mockResponse));

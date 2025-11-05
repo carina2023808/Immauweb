@@ -29,10 +29,14 @@
 <a href="#" (click)="toggleMode(); $event.preventDefault()" class="toggle-link">
   {{ isLoginMode ? 'Créer un compte' : 'Se connecter' }}
 </a> -->
-<div class="auth-container">
+
+
+
+
+<!-- <div class="auth-container">
   <h2>{{ isLoginMode ? 'Se connecter' : 'Créer un compte' }}</h2>
 
-  <!-- ALERTAS -->
+
   <div *ngIf="successMsg" class="alert alert-success">
     {{ successMsg }}
   </div>
@@ -44,7 +48,7 @@
   <form (ngSubmit)="onSubmit()" #authForm="ngForm">
 
     <div *ngIf="!isLoginMode">
-      <label for="firstname" class="label">Prénom</label>
+      <label for="firstname" class="label" >Prénom</label>
       <input
         id="firstname"
         type="text"
@@ -98,6 +102,111 @@
     </div>
 
     <button type="submit" class="btn-primary">
+      {{ isLoginMode ? 'Connexion' : 'S\'inscrire' }}
+    </button>
+  </form>
+
+  <a href="#" (click)="toggleMode(); $event.preventDefault()" class="toggle-link">
+    {{ isLoginMode ? 'Créer un compte' : 'Se connecter' }}
+  </a>
+</div> -->
+
+
+
+
+<div class="auth-container">
+  <h2>{{ isLoginMode ? 'Se connecter' : 'Créer un compte' }}</h2>
+
+  <div *ngIf="successMsg" class="alert alert-success">
+    {{ successMsg }}
+  </div>
+
+  <div *ngIf="errorMsg" class="alert alert-danger">
+    {{ errorMsg }}
+  </div>
+
+  <form (ngSubmit)="onSubmit()" #authForm="ngForm">
+
+    <div *ngIf="!isLoginMode">
+      <label for="firstname" class="label">Prénom</label>
+      <input
+        id="firstname"
+        type="text"
+        [(ngModel)]="firstname"
+        name="firstname"
+        class="input"
+        required
+        #firstnameModel="ngModel"
+      />
+      <div *ngIf="firstnameModel.invalid && firstnameModel.touched" class="text-danger">
+        Le prénom est obligatoire.
+      </div>
+
+      <label for="lastname" class="label">Nom</label>
+      <input
+        id="lastname"
+        type="text"
+        [(ngModel)]="lastname"
+        name="lastname"
+        class="input"
+        required
+        #lastnameModel="ngModel"
+      />
+      <div *ngIf="lastnameModel.invalid && lastnameModel.touched" class="text-danger">
+        Le nom est obligatoire.
+      </div>
+    </div>
+
+    <label for="email" class="label">Email</label>
+    <input
+      id="email"
+      type="email"
+      [(ngModel)]="email"
+      name="email"
+      class="input"
+      required
+      #emailModel="ngModel"
+    />
+    <div *ngIf="emailModel.invalid && emailModel.touched" class="text-danger">
+      L'email est obligatoire et doit être valide.
+    </div>
+
+    <label for="password" class="label">Mot de passe</label>
+    <input
+      id="password"
+      type="password"
+      [(ngModel)]="password"
+      name="password"
+      class="input"
+      required
+      #passwordModel="ngModel"
+    />
+    <div *ngIf="passwordModel.invalid && passwordModel.touched" class="text-danger">
+      Le mot de passe est obligatoire.
+    </div>
+
+    <div *ngIf="!isLoginMode">
+      <label for="confirmPassword" class="label">Confirmer mot de passe</label>
+      <input
+        id="confirmPassword"
+        type="password"
+        [(ngModel)]="confirmPassword"
+        name="confirmPassword"
+        class="input"
+        required
+        #confirmPasswordModel="ngModel"
+      />
+      <div *ngIf="confirmPasswordModel.invalid && confirmPasswordModel.touched" class="text-danger">
+        La confirmation du mot de passe est obligatoire.
+      </div>
+
+      <!-- Validação da correspondência das senhas -->
+      <div *ngIf="password && confirmPassword && password !== confirmPassword" class="text-danger">
+        Les mots de passe ne correspondent pas.
+      </div>
+    </div>
+
+    <button type="submit" class="btn-primary" [disabled]="authForm.invalid || (password && confirmPassword && password !== confirmPassword)">
       {{ isLoginMode ? 'Connexion' : 'S\'inscrire' }}
     </button>
   </form>
